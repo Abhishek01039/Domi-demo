@@ -6,7 +6,7 @@ A Flutter project Demo with BottomSheet & Map.
 
 ### Clone project with the below URL
 
-`git clone <--url-->`
+`git clone https://github.com/Abhishek01039/Domi-demo/tree/main`
 
 ### Execute the below command to set-up and run the app
 
