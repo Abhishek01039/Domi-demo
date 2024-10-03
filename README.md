@@ -43,7 +43,7 @@ Replace map API key on ios on this file "project/ios/Runner/AppDelegate.swift"
 GMSServices.provideAPIKey("<-- API KEY -->")
 ```
 
-Proof 
+Proof
 
 - iOS
 
@@ -51,8 +51,14 @@ https://github.com/user-attachments/assets/967bbbec-2da9-4fd0-a010-74c2f7b29d95
 
 - Android
 
-
-
 https://github.com/user-attachments/assets/e69c1105-668f-4ef8-b148-f167d0a62012
 
+**NOTE:**
 
+I am using open street API to get the building location via latitude & longitude.
+
+![](proofs/open_street.png)
+
+**That's why it's offset are different than google map**. If we use open street for showing map & get the building location then it's showing exact same location
+
+![](proofs/google_map.png)

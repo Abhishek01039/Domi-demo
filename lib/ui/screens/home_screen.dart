@@ -13,6 +13,7 @@ import '../../core/providers/location_provider.dart';
 import '../../routes.dart';
 import '../widget/circular_icon_widget.dart';
 import '../widget/custom_loader.dart';
+import '../widget/custom_marker.dart';
 import '../widget/invite_dialog.dart';
 import 'detail_screen.dart';
 
@@ -36,9 +37,12 @@ class _HomeScreenState extends State<HomeScreen> {
     init();
   }
 
+  BitmapDescriptor? geofenceMarker;
+
   /// Method to load icon and fetch current location when page called
   Future<void> init() async {
     markerIcon = await _getBitmapDescriptorFromAssetBytes(ImageAssets.buildingImage, 100);
+    geofenceMarker = await _getMarkerIcon();
     Provider.of<LocationProvider>(context, listen: false).getCurrentLocation(context);
   }
 
@@ -56,12 +60,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 : GoogleMap(
                     mapType: MapType.normal,
                     initialCameraPosition: CameraPosition(target: provider.currentLatLng, zoom: 14.0),
-                    markers: {_getMarker(provider.currentLatLng)},
-                    onMapCreated: (GoogleMapController controller) {
-                      Provider.of<LocationProvider>(context, listen: false).setMapController(controller);
+                    markers: {
+                      _getMarker(provider.currentLatLng),
+                      if(geofenceMarker!= null)
+                        _getGeoMarker(provider.geoFenceLatLng)
                     },
-                    onTap: (LatLng value) => Provider.of<InviteProvider>(context, listen: false).updateInviteDialogVisibility(true),
-                  ),
+                    onMapCreated: (GoogleMapController controller) {
+                      provider.setMapController(controller);
+                    },
+                    onTap: (LatLng value) {
+                      Provider.of<InviteProvider>(context, listen: false).updateInviteDialogVisibility(true);
+                      provider.fetchBuildingCoordinates(context, value);
+                    },
+              polygons: provider.polygon == null ? {} : {provider.polygon!},
+            ),
             _topWidget(),
             _bottomSheet(),
             Consumer<InviteProvider>(
@@ -162,6 +174,15 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// Method to get market on geo fence
+  Marker _getGeoMarker(LatLng currentLocation) {
+    return Marker(
+      markerId: const MarkerId("currentLocation"),
+      position: currentLocation,
+      icon: geofenceMarker!,
+    );
+  }
+
   /// Method to get BitmapDescriptor from assets of marker icon
   Future<BitmapDescriptor> _getBitmapDescriptorFromAssetBytes(String path, int width) async {
     final data = await rootBundle.load(path);
@@ -174,5 +195,19 @@ class _HomeScreenState extends State<HomeScreen> {
     }
 
     return BitmapDescriptor.fromBytes(byteData.buffer.asUint8List());
+  }
+
+  /// Method to get custom widget marker icon
+  Future<BitmapDescriptor?> _getMarkerIcon() async {
+    return CustomMarker(
+      key: GlobalKey(debugLabel: '${DateTime.now().millisecondsSinceEpoch}'),
+      color: Colors.black,
+      image: Image.asset(
+        ImageAssets.buildingImage,
+        width: 50,
+        height: 50,
+        fit: BoxFit.cover,
+      ),
+    ).toBitmapDescriptor();
   }
 }

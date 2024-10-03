@@ -19,4 +19,6 @@ class Strings{
   static const domiIn = 'Domi in';
   static const domiDocs = 'Domi Docs';
   static const searchDocs = 'Search Docs';
+  static const noDataForBuilding = 'No data found for this building';
+  static const apiFailure = 'Overpass API request failed';
 }

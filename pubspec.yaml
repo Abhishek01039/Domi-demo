@@ -1,7 +1,7 @@
 name: untitle_demo
 description: "A new Flutter project."
 
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
@@ -16,6 +16,7 @@ dependencies:
   google_maps_flutter: ^2.2.0
   geolocator: ^13.0.1
   provider: ^6.1.2
+  http: ^1.2.2
 
 dev_dependencies:
   flutter_test:
@@ -24,7 +25,6 @@ dev_dependencies:
   flutter_lints: ^5.0.0
 
 flutter:
-
   uses-material-design: true
 
   assets:
