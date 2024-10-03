@@ -8,7 +8,7 @@ A Flutter project Demo with BottomSheet & Map.
 
 `git clone https://github.com/Abhishek01039/Domi-demo/tree/main`
 
-### Execute the below command to set-up and run the app
+### Execute the below command to set up and run the app
 
 ```
 flutter clean
@@ -45,13 +45,11 @@ GMSServices.provideAPIKey("<-- API KEY -->")
 
 Proof
 
-- iOS
 
-https://github.com/user-attachments/assets/967bbbec-2da9-4fd0-a010-74c2f7b29d95
 
-- Android
+https://github.com/user-attachments/assets/5fc16eb6-c223-4591-b093-2cdaa89de87e
 
-https://github.com/user-attachments/assets/e69c1105-668f-4ef8-b148-f167d0a62012
+
 
 **NOTE:**
 
@@ -59,6 +57,6 @@ I am using open street API to get the building location via latitude & longitude
 
 ![](proofs/open_street.png)
 
-**That's why it's offset are different than google map**. If we use open street for showing map & get the building location then it's showing exact same location
+**That's why its offset is different than Google Maps**. If we use the open street for showing the map & get the building location then it will show the same location (building & polygon)
 
 ![](proofs/google_map.png)
